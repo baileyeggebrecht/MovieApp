@@ -1,12 +1,15 @@
 package com.example.movielistrecycleview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     Button btn_addMovie;
 
     List<Movie> movieList = new ArrayList<Movie>();
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     
 
     @Override
@@ -27,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         fillMovieList();
         Log.d(TAG, "onCreate: " + movieList.toString());
+        Toast.makeText(this, "Movies count = " + movieList.size(), Toast.LENGTH_SHORT).show();
 
         btn_addMovie = findViewById(R.id.btn_addMovie);
 
@@ -38,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        recyclerView = findViewById(R.id.lv_movieList);
+        // i content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+        // Use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Specify an adapter
+        mAdapter = new RecycleViewAdapter(movieList, this);
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void fillMovieList() {
