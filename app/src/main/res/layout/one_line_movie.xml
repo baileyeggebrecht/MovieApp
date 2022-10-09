@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/oneLineMovieLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/oneLineMovieLayout">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_moviePicture"
@@ -20,6 +20,7 @@
         android:id="@+id/tv_movieName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/iv_moviePicture"
@@ -29,6 +30,7 @@
         android:id="@+id/tv_whoRecommended"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/iv_moviePicture"
@@ -38,6 +40,7 @@
         android:id="@+id/tv_awfulRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/iv_moviePicture"
