@@ -1,64 +1,18 @@
 package com.example.movielistrecycleview;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.app.Application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MyApplication extends Application {
 
-    private static final String TAG = "Movies App";
-    Button btn_addMovie;
+    private static List<Movie> movieList = new ArrayList<Movie>();
+    private static int nextId = 9;
 
-    MyApplication myApplication = (MyApplication) this.getApplication();
-
-    List<Movie> movieList;
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        movieList = myApplication.getMovieList();
-        Log.d(TAG, "onCreate: " + movieList.toString());
-        Toast.makeText(this, "Movies count = " + movieList.size(), Toast.LENGTH_SHORT).show();
-
-        btn_addMovie = findViewById(R.id.btn_addMovie);
-
-        btn_addMovie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddEditMovie.class);
-                startActivity(intent);
-
-            }
-        });
-
-        recyclerView = findViewById(R.id.lv_movieList);
-        // i content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-        // Use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // Specify an adapter
-        mAdapter = new RecycleViewAdapter(movieList, this);
-        recyclerView.setAdapter(mAdapter);
+    public MyApplication() {
+        fillMovieList();
     }
 
     private void fillMovieList() {
@@ -73,5 +27,21 @@ public class MainActivity extends AppCompatActivity {
         Movie m8 = new Movie(8, "Tucker and Dale vs Evil", "Bailey", "https://m.media-amazon.com/images/M/MV5BODQ5NDQ0MjkwMF5BMl5BanBnXkFtZTcwNDg1OTU4NQ@@._V1_.jpg", 0);
 
         movieList.addAll(Arrays.asList(new Movie[]{m1, m2, m3, m4, m5, m6, m7, m8}));
+    }
+
+    public static List<Movie> getMovieList() {
+        return movieList;
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
+    }
+
+    public static int getNextId() {
+        return nextId;
+    }
+
+    public static void setNextId(int nextId) {
+        MyApplication.nextId = nextId;
     }
 }
